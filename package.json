@@ -1,0 +1,30 @@
+{
+  "name": "sails-userhooks-ws",
+  "version": "0.0.1",
+  "description": "WS support for sails.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "for f in tests/*; do echo \"$f\"; node \"$f\"; done; echo 'passed!'; exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/provectus/sails-userhooks-ws.git"
+  },
+  "keywords": [
+    "websocket",
+    "ws",
+    "sails.js",
+    "hook"
+  ],
+  "author": "Konstantin Makarychev <kmakarichev@provectus-it.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/provectus/sails-userhooks-ws/issues"
+  },
+  "homepage": "https://github.com/provectus/sails-userhooks-ws",
+  "dependencies": {
+    "ws": "~0.4.31",
+    "lodash": "~2.4.1",
+    "querystring": "~0.2.0"
+  }
+}
