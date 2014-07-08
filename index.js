@@ -61,8 +61,8 @@ module.exports = function (sails) {
                 sails.config.ws.onConnect(socket);
                 connection(socket, server);
 
-                socket.on('close', function (socket) {
-                    sails.config.ws.onDisconnect(socket);
+                socket.on('close', function (code, message) {
+                    sails.config.ws.onDisconnect(socket, code, message);
                     sails.log.debug('WS::Connection closed');
                 });
             });
