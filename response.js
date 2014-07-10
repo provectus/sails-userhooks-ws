@@ -8,9 +8,11 @@
 module.exports = function (sails) {
     return function (socket, server) {
 
-        function makeResponseObject(code, body) {
+        function makeResponseObject(code, action, resource, body) {
             var struct = {
                 status: code,
+                action: action,
+                resource: resource,
                 body: body
             };
             var str = JSON.stringify(struct);
@@ -32,19 +34,22 @@ module.exports = function (sails) {
                 return this;
             },
 
-            send: function (data, code, sock) {
+            send: function (data, code, action, resource, sock) {
                 var _code = code || this.code || 200,
-                    _socket = sock || socket;
-                _socket.send(makeResponseObject(_code, data), function (error) {
+                    _socket = sock || socket,
+                    _action = action || 'GET',
+                    _resource = resource || '/';
+                _socket.send(makeResponseObject(_code, _action, _resource, data), function (error) {
                     if (error === null) {
                         sails.log.error('WS: Error while sending response: ' + error);
                     }
                 });
             },
 
-            broadcast: function (data, code) {
+            broadcast: function (data, code, action, resource) {
                 for (var i in server.clients) {
-                    this.send(data, code, server.client[i]);
+                    var args = [].concat.call([].slice.call(arguments, 0), server.clients[i]);
+                    this.send.apply(this, args);
                 }
             },
 
