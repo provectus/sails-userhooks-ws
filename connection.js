@@ -36,7 +36,7 @@ module.exports = function (sails) {
             throw new WSError(400, "Bad scheme resource: " +  JSON.stringify(request));
         }
 
-        if (METHODS.indexOf(request[ACTION]) === -1) {
+        if (METHODS.indexOf(request[ACTION].toLowerCase()) === -1) {
             throw new WSError(400, "Unknown action: " + JSON.stringify(request));
         }
     }
