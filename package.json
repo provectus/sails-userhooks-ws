@@ -1,6 +1,6 @@
 {
   "name": "sails-userhooks-ws",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "WS support for sails.js",
   "main": "index.js",
   "scripts": {
@@ -25,6 +25,7 @@
   "dependencies": {
     "ws": "~0.4.31",
     "lodash": "~2.4.1",
-    "querystring": "~0.2.0"
+    "querystring": "~0.2.0",
+    "mock-req": "0.1.0"
   }
 }

@@ -1,3 +1,4 @@
+"use strict";
 /**
  * WS Request
  *
@@ -7,14 +8,14 @@
 
 module.exports = function (sails) {
 
-    var QueryString = require('querystring');
-
+    var QueryString = require('querystring'),
+        MockReq = require('mock-req');
 
     return function (request, socket) {
         var queryStringPos = request['resource'].indexOf('?');
         var queryParams = queryStringPos === -1 ? {} : QueryString.parse(request['resource'].substr(queryStringPos + 1));
 
-        return {
+        var reqOptions = {
             transport: 'ws',
 
             method: request['action'].toUpperCase(),
@@ -28,8 +29,6 @@ module.exports = function (sails) {
             socket: [socket],
 
             query: queryParams,
-
-            body: request['body'] || {},
 
             param: function(paramName) {
                 var key, params = {};
@@ -53,5 +52,14 @@ module.exports = function (sails) {
             }
 
         };
+
+        var req = new MockReq(reqOptions);
+
+        if (['put', 'post', 'patch'].indexOf(request['action'].toLowerCase()) !== -1) {
+            req.write(request['body'] || {});
+            req.end();
+        }
+
+        return req;
     }
 };
