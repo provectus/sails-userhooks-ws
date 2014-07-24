@@ -25,7 +25,7 @@ module.exports = function (sails) {
 
             url: request['resource'],
 
-            socket: socket,
+            socket: [socket],
 
             query: queryParams,
 
