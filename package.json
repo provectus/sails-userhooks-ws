@@ -1,6 +1,6 @@
 {
   "name": "sails-userhooks-ws",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "WS support for sails.js",
   "main": "index.js",
   "scripts": {
