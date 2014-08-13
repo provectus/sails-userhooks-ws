@@ -49,7 +49,9 @@ module.exports = function (sails) {
                 }
 
                 return params[paramName];
-            }
+            },
+
+	    locale: queryParams['locale'] == null ? undefined : queryParams['locale']
 
         };
 
