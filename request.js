@@ -55,6 +55,12 @@ module.exports = function (sails) {
 
         };
 
+        Object.defineProperty(reqOptions, 'locale', {
+            value: queryParams['locale'] == null ? undefined : queryParams['locale'],
+            writable: false,
+            enumerable: false
+        });
+
         var req = new MockReq(reqOptions);
 
         if (['put', 'post', 'patch'].indexOf(request['action'].toLowerCase()) !== -1) {
