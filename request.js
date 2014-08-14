@@ -55,13 +55,15 @@ module.exports = function (sails) {
 
         };
 
-        Object.defineProperty(reqOptions, 'locale', {
-            value: queryParams['locale'] == null ? undefined : queryParams['locale'],
-            writable: false,
-            enumerable: false
-        });
-
         var req = new MockReq(reqOptions);
+
+        var defaultQueryStringPos = socket.upgradeReq.url.indexOf('?');
+        var defaultQueryParams = defaultQueryStringPos === -1 ? {} : QueryString.parse(socket.upgradeReq.url.substr(defaultQueryStringPos + 1));
+
+        Object.defineProperty(req, 'locale', {
+            value: defaultQueryParams['locale'] == null ? undefined : defaultQueryParams['locale'],
+            writable: false,
+        });
 
         if (['put', 'post', 'patch'].indexOf(request['action'].toLowerCase()) !== -1) {
             req.write(request['body'] || {});
